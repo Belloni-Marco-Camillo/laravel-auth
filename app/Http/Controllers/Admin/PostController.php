@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -36,9 +37,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+
+        $val_data = $request->validated();
+
+        dd($val_data);
+        Post::create($val_data);
+        return redirect()->route('admin.posts.index')->with('message','post crated successfully');
     }
 
     /**
